@@ -138,4 +138,3 @@ aplay /home/root/Music/o98.wav
 
 rm /home/root/Desktop/RunMe.desktop
 
-reboot -f

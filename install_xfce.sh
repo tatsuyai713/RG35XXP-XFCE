@@ -1,5 +1,7 @@
 #!/bin/bash
 
+PWD=$(pwd)
+
 #init
 echo $0 $*
 progdir=$(dirname "$(realpath "$0")")
@@ -31,14 +33,14 @@ mkdir -p /root
 #configurations
 rm /usr/bin/firefox
 
-find /mnt/mmc/Roms/APPS/payload -mindepth 1 -printf '%P\0' | \
+find $PWD/payload -mindepth 1 -printf '%P\0' | \
 while IFS= read -r -d '' file; do
-    if [ -d "/mnt/mmc/Roms/APPS/payload/$file" ]; then
+    if [ -d "$PWD/payload/$file" ]; then
         echo "Creating directory: /$file"
         mkdir -p "/$file"
     else
-        echo "Moving file: /mnt/mmc/Roms/APPS/payload/$file to /$file"
-        mv -f "/mnt/mmc/Roms/APPS/payload/$file" "/$file"
+        echo "Moving file: $PWD/payload/$file to /$file"
+        mv -f "$PWD/payload/$file" "/$file"
     fi
 done
 
@@ -56,8 +58,6 @@ if [ $? -ne 0 ]; then
     echo "Nonzero payload copy?"
 fi
 
-rm /mnt/mmc/Roms/APPS/install_xfce.sh
-
 xfconf-query --channel thunar --property /misc-exec-shell-scripts-by-default --create --type bool --set true
 
 mkdir -p /home/root 
@@ -65,10 +65,4 @@ cp -R /root/* /home/root/
 chown -R root:root /home/root
 sed -i 's|root:x:0:0:root:/root:|root:x:0:0:root:/home/root:|' /etc/passwd
 
-rm /etc/xdg/autostart/xfce4-screensaver.desktop
-rm /etc/xdg/autostart/xscreensaver.desktop
-apt remove -y xfce4-screensaver
 
-apt-get clean
-
-reboot -f
