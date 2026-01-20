@@ -69,7 +69,7 @@ if [ $? -ne 0 ]; then
 fi
 
 #freetype
-cd /home/root/setup/source
+cd /root/setup/source
 
 echo "Unzipping freetype..." 
 tar -xf freetype-2.13.3.tar.gz 
@@ -134,7 +134,7 @@ update-alternatives --set x-www-browser /usr/bin/firefox/firefox
 
 sed -i 's/load-module module-native-protocol-unix/load-module module-native-protocol-unix auth-anonymous=1/' /etc/pulse/system.pa 
 
-aplay /home/root/Music/o98.wav
+aplay /root/Music/o98.wav
 
-rm /home/root/Desktop/RunMe.desktop
+rm /root/Desktop/RunMe.desktop
 
